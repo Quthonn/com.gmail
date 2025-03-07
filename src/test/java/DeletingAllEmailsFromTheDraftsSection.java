@@ -1,12 +1,13 @@
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class SendLetter_Gmail {
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverConditions.url;
+
+public class DeletingAllEmailsFromTheDraftsSection {
     @BeforeAll
     public static void BeforeAll() {
         ChromeOptions options = new ChromeOptions();
@@ -21,16 +22,17 @@ public class SendLetter_Gmail {
     }
 
     @Test
-    public void SendMail_Gmail() {
+    public void DeletingAllEmailsFromTheDraftsSection() {
         open("https://gmail.com");
+        $(".aHS-bnq").click();
+//        webdriver().shouldHave(url("https://mail.google.com/mail/u/0/#drafts"));
+//        $("#profile").shouldBe(visible);
+        sleep(3000);
+        $(".aqK").$("input[role='checkbox']").click();
 
-        $(".z0").shouldBe(visible).click();
-        $("[peoplekit-id='BbVjBd']").setValue("hejen62000@dwriters.com").pressEnter();
-        $("[name='subjectbox']").setValue("Тема тестового письма");
-        $(".Am").setValue("Если ты это читаешь из электронной почты, значит автотест правильно " +
-                "делает все");
-        $("[id=':o0']").click();
-        $(".bAq").shouldBe(text("Сообщение отправлено."));
+
+
+
 
     }
 }
