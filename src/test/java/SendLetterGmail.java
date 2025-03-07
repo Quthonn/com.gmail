@@ -6,7 +6,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class SendLetter_Gmail {
+public class SendLetterGmail {
     @BeforeAll
     public static void BeforeAll() {
         ChromeOptions options = new ChromeOptions();
@@ -23,7 +23,6 @@ public class SendLetter_Gmail {
     @Test
     public void SendMail_Gmail() {
         open("https://gmail.com");
-
         $(".z0").shouldBe(visible).click();
         $("[peoplekit-id='BbVjBd']").setValue("hejen62000@dwriters.com").pressEnter();
         $("[name='subjectbox']").setValue("Тема тестового письма");
