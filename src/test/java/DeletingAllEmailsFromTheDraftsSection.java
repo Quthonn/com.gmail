@@ -2,8 +2,7 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
-
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.url;
 
@@ -23,16 +22,14 @@ public class DeletingAllEmailsFromTheDraftsSection {
 
     @Test
     public void DeletingAllEmailsFromTheDraftsSection() {
+        String expectedUrl = "https://mail.google.com/mail/u/0/#drafts";
+
         open("https://gmail.com");
         $(".aHS-bnq").click();
-//        webdriver().shouldHave(url("https://mail.google.com/mail/u/0/#drafts"));
-//        $("#profile").shouldBe(visible);
-        sleep(3000);
-        $(".aqK").$("input[role='checkbox']").click();
-
-
-
-
-
+        webdriver().shouldHave(url(expectedUrl));
+        $("[gh='mtb']").$("[role='checkbox']").click();
+        $(".Bn").click();
+        $(".aeF").shouldHave(exactText("Нет сохраненных черновиков. Черновики позволяют хранить " +
+                "письма, еще не готовые к отправке."));
     }
 }
