@@ -1,17 +1,18 @@
-import com.codeborne.selenide.Condition;
+package loginTest;
+
 import com.codeborne.selenide.Configuration;
 import io.github.cdimascio.dotenv.Dotenv;
+import loginTest.Pages.RegistrationPage;
 import org.junit.jupiter.api.Test;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverConditions.url;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class LoginTests { //Добавить везде этапы проверок
+public class LoginTest {
 
     private static String MAIL;
     private static String PASSWORD;
+
+    RegistrationPage registrationPage = new RegistrationPage();
 
     @BeforeAll
     public static void BeforeAll() {
@@ -30,21 +31,16 @@ public class LoginTests { //Добавить везде этапы провер�
         Configuration.holdBrowserOpen = true;
     }
 
-
-
     @Test
     public void successfulLogin_Gmail() {
-        open("https://gmail.com");
-        $("[name=identifier]").setValue(MAIL);
-        $(".TNTaPb").click(); //Нажатие по кнопке перехода на страницу ввода пароля
-        $("[name=Passwd]").shouldBe(visible).setValue(PASSWORD);
-        $(".TNTaPb").click();
+        registrationPage.openPage()
+                        .setMail(MAIL)
+                        .nextPageEntryPassword()
+                        .setPassword(PASSWORD)
+                        .clickLoginButton()
+                        .waitLoadingSite()
+                        .checkURL("https://mail.google.com/mail/u/0/#inbox");
 
-        // Ожидание загрузки страницы
-        $("body").shouldBe(Condition.visible);
-
-        // Проверка URL после загрузки страницы
-        webdriver().shouldHave(url("https://mail.google.com/mail/u/0/#inbox"));
     }
 }
 
