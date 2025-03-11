@@ -3,9 +3,12 @@ package loginTest.Pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.url;
+import static com.codeborne.selenide.WebDriverConditions.urlContaining;
 
 public class RegistrationPage {
     private SelenideElement
@@ -34,8 +37,8 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setPassword(String value) {
-        sleep(1000);
-        passwordField.shouldBe(Condition.appear).setValue(value);
+//        webdriver().shouldHave(urlContaining("https://accounts.google.com/v3/signin/challenge/pwd?"));
+        passwordField.shouldBe(Condition.appear, Duration.ofSeconds(10)).setValue(value);
 
         return this;
     }
